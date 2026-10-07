@@ -20,4 +20,20 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 class BankAccount
 {
+    private float $balance;
+
+    public function __construct(float $balance = 100.0)
+    {
+        $this->balance = $balance;
     }
+
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+
+    public function setBalance(float $balance): void
+    {
+        $this->balance = $balance;
+    }
+}
