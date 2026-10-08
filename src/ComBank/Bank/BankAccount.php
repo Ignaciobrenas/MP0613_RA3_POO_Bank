@@ -20,10 +20,13 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 class BankAccount
 {
+    use AmountValidationTrait;
+
     private float $balance;
 
     public function __construct(float $balance = 100.0)
     {
+        $this->validateAmount($balance);
         $this->balance = $balance;
     }
 
