@@ -20,4 +20,8 @@ interface BankAccountInterface
     public function getBalance(): float;
 
     public function setBalance(float $balance): void;
+
+    public function isOpen(): bool;
+
+    public function closeAccount(): void;
 }

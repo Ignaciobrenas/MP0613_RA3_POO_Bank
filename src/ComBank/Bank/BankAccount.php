@@ -23,11 +23,13 @@ class BankAccount implements BankAccountInterface
     use AmountValidationTrait;
 
     private float $balance;
+    private string $status;
 
     public function __construct(float $balance = 100.0)
     {
         $this->validateAmount($balance);
         $this->balance = $balance;
+        $this->status = BankAccountInterface::STATUS_OPEN;
     }
 
     public function getBalance(): float
@@ -38,5 +40,18 @@ class BankAccount implements BankAccountInterface
     public function setBalance(float $balance): void
     {
         $this->balance = $balance;
+    }
+
+    public function isOpen(): bool
+    {
+        return $this->status === BankAccountInterface::STATUS_OPEN;
+    }
+
+    public function closeAccount(): void
+    {
+        if (!$this->isOpen()) {
+            throw new BankAccountException('Account is already closed.');
+        }
+        $this->status = BankAccountInterface::STATUS_CLOSED;
     }
 }
