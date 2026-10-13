@@ -17,5 +17,7 @@ interface BankAccountInterface
     const STATUS_OPEN = 'OPEN';
     const STATUS_CLOSED = 'CLOSED';
 
-   
+    public function getBalance(): float;
+
+    public function setBalance(float $balance): void;
 }
