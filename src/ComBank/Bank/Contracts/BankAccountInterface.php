@@ -24,4 +24,6 @@ interface BankAccountInterface
     public function isOpen(): bool;
 
     public function closeAccount(): void;
+
+    public function reopenAccount(): void;
 }
