@@ -62,5 +62,14 @@ class BankAccount implements BankAccountInterface
         }
         $this->status = BankAccountInterface::STATUS_OPEN;
     }
+
+    public function transaction(BankTransactionInterface $transaction): void
+    {
+        if (!$this->isOpen()) {
+            throw new BankAccountException('Account is closed.');
+        }
+
+        $this->setBalance($transaction->applyTransaction($this));
+    }
 }
 

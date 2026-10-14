@@ -26,4 +26,11 @@ interface BankAccountInterface
     public function closeAccount(): void;
 
     public function reopenAccount(): void;
+
+
+    // aqui meto la transaccion  
+    // da igual si es deposito o sacar dinero 
+    public function transaction(BankTransactionInterface $transaction): void;
+
+
 }
