@@ -27,8 +27,12 @@ try {
     pl('My balance : ' . $bankAccount1->getBalance());
 
     // close account
+    $bankAccount1->closeAccount();
+    pl('My account is now closed.');
 
     // reopen account
+    $bankAccount1->reopenAccount();
+    pl('My account is now reopened.');
 
 
     // deposit +150 
