@@ -38,19 +38,22 @@ try {
     // deposit +150 
     pl('Doing transaction deposit (+150) with current balance ' . $bankAccount1->getBalance());
 
-//añado una transaccion de tipo deposito
+    //añado una transaccion de tipo deposito
     $bankAccount1->transaction(new DepositTransaction(150.0));
-
 
     pl('My new balance after deposit (+150) : ' . $bankAccount1->getBalance());
 
     // withdrawal -25
     pl('Doing transaction withdrawal (-25) with current balance ' . $bankAccount1->getBalance());
 
+    $bankAccount1->transaction(new WithdrawTransaction(25.0));
+
     pl('My new balance after withdrawal (-25) : ' . $bankAccount1->getBalance());
 
     // withdrawal -600
     pl('Doing transaction withdrawal (-600) with current balance ' . $bankAccount1->getBalance());
+
+    $bankAccount1->transaction(new WithdrawTransaction(600.0));
 
 } catch (ZeroAmountException $e) {
     pl($e->getMessage());
@@ -60,6 +63,10 @@ try {
     pl('Error transaction: ' . $e->getMessage());
 }
 pl('My balance after failed last transaction : ' . $bankAccount1->getBalance());
+
+// close account
+$bankAccount1->closeAccount();
+pl('My account is now closed.');
 
 
 
@@ -102,7 +109,7 @@ try {
 pl('My new balance after withdrawal (-20) with funds : ' . $bankAccount2->getBalance());
 
 try {
-   
+    
 } catch (BankAccountException $e) {
     pl($e->getMessage());
 }
