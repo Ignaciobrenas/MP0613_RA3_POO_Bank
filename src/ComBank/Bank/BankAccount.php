@@ -50,6 +50,12 @@ class BankAccount implements BankAccountInterface
         return $this->overdraft;
     }
 
+    public function applyOverdraft(OverdraftInterface $overdraft): void
+    {
+        $this->overdraft = $overdraft;
+        
+    }
+
     public function isOpen(): bool
     {
         return $this->status === BankAccountInterface::STATUS_OPEN;

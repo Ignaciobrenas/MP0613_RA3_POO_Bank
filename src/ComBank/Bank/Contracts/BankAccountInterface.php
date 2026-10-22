@@ -35,6 +35,6 @@ interface BankAccountInterface
 
     //maximo de deuda que puedes tener
     public function getOverdraft(): OverdraftInterface;
-    
-    
-    }
+
+    public function applyOverdraft(OverdraftInterface $overdraft): void;
+}

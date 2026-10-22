@@ -72,24 +72,30 @@ pl('My account is now closed.');
 
 
 //---[Bank account 2]---/
+//creo la cuenta2
+$bankAccount2 = new BankAccount(200.0);
+
+//le pongo silver para que se pueda quedar a -100 en vez de 0
+$bankAccount2->applyOverdraft(new SilverOverdraft());
 pl('--------- [Start testing bank account #2, Silver overdraft (100.0 funds)] --------');
 try {
     
     // show balance account
+    pl('My balance : ' . $bankAccount2->getBalance());
    
     // deposit +100
     pl('Doing transaction deposit (+100) with current balance ' . $bankAccount2->getBalance());
-    
+    $bankAccount2->transaction(new DepositTransaction(100.0));
     pl('My new balance after deposit (+100) : ' . $bankAccount2->getBalance());
 
     // withdrawal -300
     pl('Doing transaction deposit (-300) with current balance ' . $bankAccount2->getBalance());
-   
+    $bankAccount2->transaction(new WithdrawTransaction(300.0));
     pl('My new balance after withdrawal (-300) : ' . $bankAccount2->getBalance());
 
     // withdrawal -50
     pl('Doing transaction deposit (-50) with current balance ' . $bankAccount2->getBalance());
-    
+    $bankAccount2->transaction(new WithdrawTransaction(50.0));
     pl('My new balance after withdrawal (-50) with funds : ' . $bankAccount2->getBalance());
 
     // withdrawal -120
@@ -109,7 +115,7 @@ try {
 pl('My new balance after withdrawal (-20) with funds : ' . $bankAccount2->getBalance());
 
 try {
-    
+   
 } catch (BankAccountException $e) {
     pl($e->getMessage());
 }
