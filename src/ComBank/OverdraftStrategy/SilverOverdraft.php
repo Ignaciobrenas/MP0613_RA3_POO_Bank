@@ -1,5 +1,7 @@
 <?php namespace ComBank\OverdraftStrategy;
 
+use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
+
 /**
  * Created by VS Code.
  * User: JPortugal
@@ -10,8 +12,17 @@
 /**
  * @description: Grant 100.00 overdraft funds.
  * */
-class SilverOverdraft 
+class SilverOverdraft implements OverdraftInterface 
 {
 
-    
+//la cuenta con silver se puede quedar con 
+    public function isGrantOverdraftFunds(float $newAmount): bool
+    {
+        return $newAmount >= -100.0;
+    }
+
+    public function getOverdraftFundsAmount(): float
+    {
+        return 100.0;
+    }
 }
