@@ -8,9 +8,12 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\OverdraftStrategy\NoOverdraft;
 use ComBank\OverdraftStrategy\SilverOverdraft;
+use ComBank\OverdraftStrategy\GoldOverdraft;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
+use ComBank\Transactions\InterestTransaction;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\ZeroAmountException;
@@ -125,6 +128,32 @@ try {
     $bankAccount2->closeAccount();
 } catch (BankAccountException $e) {
     pl($e->getMessage());
-
-
 }
+
+pl('sample 1.');
+$accountSample1 = new BankAccount(1000.0);
+$accountSample1->applyOverdraft(new NoOverdraft());
+pl('Account Balance: $' . number_format($accountSample1->getBalance(), 2));
+pl('Overdraft Strategy: NoOverdraft');
+pl('Interest Rate: ' . $accountSample1->getOverdraft()->getInterestRate() . '%');
+$accountSample1->transaction(new InterestTransaction());
+pl('Balance After Transaction: $' . number_format($accountSample1->getBalance(), 2));
+
+pl('sample 2.');
+$accountSample2 = new BankAccount(1000.0);
+$accountSample2->applyOverdraft(new SilverOverdraft());
+pl('Account Balance: $' . number_format($accountSample2->getBalance(), 2));
+pl('Overdraft Strategy: SilverOverdraft');
+pl('Interest Rate: ' . $accountSample2->getOverdraft()->getInterestRate() . '%');
+$accountSample2->transaction(new InterestTransaction());
+pl('Balance After Transaction: $' . number_format($accountSample2->getBalance(), 2));
+
+// sample 3.
+pl('sample 3.');
+$accountSample3 = new BankAccount(1000.0);
+$accountSample3->applyOverdraft(new GoldOverdraft());
+pl('Account Balance: $' . number_format($accountSample3->getBalance(), 2));
+pl('Overdraft Strategy: GoldOverdraft');
+pl('Interest Rate: ' . $accountSample3->getOverdraft()->getInterestRate() . '%');
+$accountSample3->transaction(new InterestTransaction());
+pl('Balance After Transaction: $' . number_format($accountSample3->getBalance(), 2));
