@@ -25,14 +25,22 @@ class BankAccount implements BankAccountInterface
     private float $balance;
     private string $status;
     private OverdraftInterface $overdraft;
+    private string $email;
 
-    public function __construct(float $balance = 100.0)
+    public function __construct(float $balance = 100.0, ?string $email = null)
     {
         $this->validateAmount($balance);
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
         //añado la deuda que puede tener la cuenta 
         $this->overdraft = new NoOverdraft();
+
+        if ($email !== null) {
+            $this->validateEmail($email);
+            $this->email = $email;
+        } else {
+            $this->email = '';
+        }
     }
 
     public function getBalance(): float
@@ -53,7 +61,6 @@ class BankAccount implements BankAccountInterface
     public function applyOverdraft(OverdraftInterface $overdraft): void
     {
         $this->overdraft = $overdraft;
-        
     }
 
     public function isOpen(): bool
@@ -88,5 +95,16 @@ class BankAccount implements BankAccountInterface
         } catch (InvalidOverdraftFundsException $e) {
             throw new FailedTransactionException($e->getMessage());
         }
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->validateEmail($email);
+        $this->email = $email;
     }
 }

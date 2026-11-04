@@ -23,4 +23,15 @@ trait AmountValidationTrait
             throw new ZeroAmountException('Amount must be greater than zero.');
         }
     }
+
+    /**
+     * @param string $email
+     * @throws InvalidArgsException
+     */
+    private function validateEmail(string $email): void
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgsException('Invalid email format');
+        }
+    }
 }
