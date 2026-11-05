@@ -11,6 +11,7 @@ use ComBank\Bank\BankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
+use ComBank\Transactions\TransferTransaction;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidArgsException;
@@ -150,3 +151,23 @@ try {
     pl('- Email: ' . $email2);
     pl('- Result: Account creation rejected due to an invalid email format.');
 }
+
+// RESULTADO DE TRANSACCION
+pl('') ;
+pl('TRANSFERENCIA');
+pl('sample 1.');
+$accountSource = new BankAccount(500.0);
+$accountDestination = new BankAccount(200.0);
+
+pl('la cuenta origen tiene  ' . $accountSource->getBalance());
+pl('la cuenta destino tiene  ' . $accountDestination->getBalance());
+
+//asigno el destino
+
+//$accountDestination->transaction(new TransferTransaction(100.0,$accountDestination))->setDestinationAccount($accountDestination);
+
+//aplico la transaccion 
+$accountSource->transaction(new TransferTransaction(100.0,$accountDestination));
+pl('Balance (Account source)After Transaction: $' . $accountSource->getBalance());
+pl('Balance (Account destination)After Transaction: $' . $accountDestination->getBalance());
+
